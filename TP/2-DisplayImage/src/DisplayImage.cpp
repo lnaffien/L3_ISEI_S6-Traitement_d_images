@@ -1,11 +1,14 @@
 #include <opencv2/opencv.hpp>
 using namespace cv;
 
+#define IMG_PATH "data/c_img1.png"
+
 int main( int argc, char** argv )
 {
   Mat image;
-  image = imread( argv[1], 1 );
-  if( argc != 2 || !image.data )
+
+  image = imread( IMG_PATH, 1 );
+  if(!image.data )
     {
       printf( "No image data \n" );
       return -1;
