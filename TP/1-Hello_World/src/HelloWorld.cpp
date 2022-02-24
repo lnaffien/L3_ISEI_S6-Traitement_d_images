@@ -1,4 +1,5 @@
-#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
+
 using namespace cv;
 
 #define IMG_PATH "data/c_img1.png"
