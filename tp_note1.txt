@@ -1,0 +1,6 @@
+1. Trouver les contours
+2. Binarisation
+
+Couleur = 3 images à traiter (rvb)
+
+/!\ Rendre un rapport de 2 pages expliquant la démarche et montrant le résultat
