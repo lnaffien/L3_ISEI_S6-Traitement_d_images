@@ -10,11 +10,11 @@ using namespace std;
 
 int main( int argc, char** argv )
 {
-	int drawingSizeW = 550;
-	int drawingSizeH = 550;
+	int drawingSizeW = 500;
+	int drawingSizeH = 500;
 
-	int x = 50;
-	int y = 50;
+	int x = 0;
+	int y = 0;
 	int width = drawingSizeW - x;
 	int height = drawingSizeW - y;
 	int thickness = 2;
@@ -25,7 +25,7 @@ int main( int argc, char** argv )
 
 	for(int i = 0; i < 4; i++)
 	{
-		switch (i)
+		switch (i % 4)
 		{
 		case 1 : color = Scalar(255, 0, 0);
 			break;
@@ -36,11 +36,17 @@ int main( int argc, char** argv )
 		default : color = Scalar(255, 255, 255);
 			break;
 		}
+
+		if( x >= drawingSizeW || y >= drawingSizeH)
+		{
+			cout << "Too much squares for the windows size. Maximal number : " << i << "\n";
+			break;
+		}
 		rectangle(drawing, Point(x, y), Point(width, height), color, thickness);
 		x += 50;
 		y += 50;
 		width = drawingSizeW - x;
-		height = drawingSizeW - y;
+		height = drawingSizeH - y;
 	}
 
 	cout << "Hello";
