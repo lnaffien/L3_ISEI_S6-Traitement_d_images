@@ -7,17 +7,33 @@
 using namespace cv;
 using namespace std;
 
+void nestedSquares(int drawingSizeW, int drawingSizeH, int thickness);
+void alignedSquares(int drawingSizeW, int drawingSizeH, int thickness);
+Scalar getColor(int squareNumber);
 
 int main( int argc, char** argv )
 {
 	int drawingSizeW = 500;
 	int drawingSizeH = 500;
+	int squareThickness = 2;
 
+	nestedSquares(drawingSizeW, drawingSizeH, squareThickness);
+	alignedSquares(drawingSizeW, drawingSizeH, squareThickness);
+
+	cout << "Hello";
+
+	waitKey(0);
+
+	return EXIT_SUCCESS;
+}
+
+void nestedSquares(int drawingSizeW, int drawingSizeH, int thickness)
+{
 	int x = 0;
 	int y = 0;
 	int width = drawingSizeW - x;
 	int height = drawingSizeW - y;
-	int thickness = 2;
+
 	Scalar color;
 
 	Mat drawing(drawingSizeW, drawingSizeH, CV_8UC3, Scalar::all(0));
@@ -25,17 +41,7 @@ int main( int argc, char** argv )
 
 	for(int i = 0; i < 4; i++)
 	{
-		switch (i % 4)
-		{
-		case 1 : color = Scalar(255, 0, 0);
-			break;
-		case 2 : color = Scalar(0, 255, 0);
-			break;
-		case 3 : color = Scalar(0, 0, 255);
-			break;
-		default : color = Scalar(255, 255, 255);
-			break;
-		}
+		color = getColor(i);
 
 		if( x >= drawingSizeW || y >= drawingSizeH)
 		{
@@ -49,11 +55,52 @@ int main( int argc, char** argv )
 		height = drawingSizeH - y;
 	}
 
-	cout << "Hello";
-	imshow("Drawing", drawing);
+	imshow("Nested", drawing);
+
+}
+
+void alignedSquares(int drawingSizeW, int drawingSizeH, int thickness)
+{
+	int space = 30;
+	int x = space;
+	int y = space;
+	int width = drawingSizeW / 2 - space;
+	int height = drawingSizeW / 2 - space;
+	Scalar color;
+
+	Mat drawing(drawingSizeW, drawingSizeH, CV_8UC3, Scalar::all(0));
+
+	for(int i = 0; i < 4; i++)
+	{
+		color = getColor(i);
+		rectangle(drawing, Point(x, y), Point(width, height), color, thickness);
+
+		if(x + width > drawingSizeW - space)
+		{
+			// Il faut changer cette partie la
+			y += space + height;
+			height += space + height;
+			width = 0;
+			// Jusque la
+			cout << "Heeeey\n";
+		}
+
+		x += space + width;
+		width += space + width;
+	}
 
 
-  waitKey(0);
 
-  return EXIT_SUCCESS;
+	imshow("Aligned", drawing);
+}
+
+Scalar getColor(int squareNumber)
+{
+	switch (squareNumber % 4)
+	{
+		case 1 : return Scalar(255, 0, 0);
+		case 2 : return Scalar(0, 255, 0);
+		case 3 : return Scalar(0, 0, 255);
+		default : return Scalar(255, 255, 255);
+	}
 }
